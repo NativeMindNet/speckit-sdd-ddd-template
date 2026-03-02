@@ -1,0 +1,126 @@
+description = "Legacy - Reverse Engineering Documentation from existing code."
+
+prompt = """
+---
+description: Legacy - Reverse Engineering Documentation.
+---
+
+# Legacy - Reverse Engineering Documentation
+
+Analyzes existing code and generates documentation (ADR/SDD/DDD/TDD/VDD flows) automatically.
+
+## Command: {{args}}
+
+```
+/legacy                              # BFS: analyze entire project from root
+/legacy src/auth                     # BFS: analyze only src/auth
+/legacy src/auth "JWT validation"    # DFS: focus on JWT validation in src/auth
+```
+
+### No comment - BFS Mode
+
+Breadth-first recursive analysis:
+```
+Iteration 1: Root → top-level modules (depth 0)
+Iteration 2: Each module → submodules (depth 1)
+Iteration 3: Submodules → components (depth 2)
+...continue until fully analyzed
+```
+
+### With comment - DFS Mode
+
+Depth-first focused analysis:
+```
+1. Find code related to comment
+2. Analyze deeply in that area
+3. Create focused flows for that functionality
+```
+
+---
+
+## Flow Type Auto-Detection
+
+| Indicator | Flow Type |
+|-----------|-----------|
+| `*.test.*`, `*.spec.*`, `__tests__/`, `tests/` | TDD |
+| `components/`, `*.tsx`, `*.vue`, `*.svelte`, `templates/` | VDD |
+| `README.md`, public exports, `@public`, API docs | DDD |
+| Internal logic, utils, core, no UI, no public API | SDD |
+
+---
+
+## ADR Auto-Detection
+
+### Constraining (choices already made)
+- Framework/library selections
+- Architectural patterns
+- Database choices
+- API styles
+
+### Enabling (capabilities to support)
+- Extension points
+- Plugin systems
+- Configuration options
+
+---
+
+## Execution Steps
+
+### Step 1: Initialize
+- Read flows/legacy/_status.md
+- Determine mode (BFS/DFS)
+- Set target path and focus
+
+### Step 2: Analyze (Iterative per depth)
+- List contents at current depth
+- Identify module boundaries
+- Detect flow types
+- Identify ADR candidates
+- Update analysis/depth-N.md
+- Proceed to next depth
+
+### Step 3: Generate Flows
+- Create flows/[type]-[name]/ in DRAFT status
+- Generate requirements from code behavior
+- Generate specifications from implementation
+
+### Step 4: Generate ADRs
+- Create flows/adr-[NNN]-[name]/ in DRAFT status
+- Type: constraining | enabling
+
+### Step 5: Generate Review List
+- Update flows/legacy/review.md
+- List all items with confidence levels
+
+---
+
+## Files
+
+```
+flows/legacy/
+├── _status.md          # Current depth, progress
+├── log.md              # Iteration history
+├── analysis/           # Results per depth
+│   └── depth-N.md
+├── mapping.md          # Code → flow mapping
+└── review.md           # Items for review
+```
+
+---
+
+## Output
+
+All flows and ADRs created in **DRAFT** status:
+- Require human review
+- After review → approve or revise
+- Then available for /roadmap
+
+---
+
+## Always
+
+- Create flows in DRAFT status only
+- Log every iteration
+- Generate review list with confidence levels
+- Never auto-approve
+"""

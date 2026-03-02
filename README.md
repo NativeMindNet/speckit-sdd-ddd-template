@@ -97,11 +97,17 @@ Each phase requires explicit approval before advancing:
 │   ├── tdd-[feature]/            # TDD flow instances
 │   ├── vdd-[feature]/            # VDD flow instances
 │   ├── adr-[NNN]-[name]/         # ADR instances (numbered)
-│   └── roadmap/                  # Flow orchestration
-│       ├── _status.md            # Current state
-│       ├── dependencies.md       # Flow dependency graph
-│       ├── plan.md               # Master implementation plan
-│       └── log.md                # Execution history
+│   ├── roadmap/                  # Flow orchestration
+│   │   ├── _status.md            # Current state
+│   │   ├── dependencies.md       # Flow dependency graph
+│   │   ├── plan.md               # Master implementation plan
+│   │   └── log.md                # Execution history
+│   └── legacy/                   # Reverse engineering
+│       ├── _status.md            # Analysis progress
+│       ├── log.md                # Iteration history
+│       ├── analysis/             # Per-depth analysis
+│       ├── mapping.md            # Code → flow mapping
+│       └── review.md             # Items for review
 │
 ├── .claude/commands/             # Claude Code commands
 ├── .cursor/prompts/commands/     # Cursor commands
@@ -174,6 +180,26 @@ Advanced tools for specification management:
 - Finds blocking dependencies recursively
 - Completes blockers depth-first
 - Completes target flow
+
+### Legacy - Reverse Engineering
+
+| Command | Description |
+|---------|-------------|
+| `/legacy` | BFS: Analyze entire project, generate docs |
+| `/legacy [path]` | BFS: Analyze specific path only |
+| `/legacy [path] "comment"` | DFS: Focus on specific functionality |
+
+**Auto-detects flow types:**
+- TDD ← tests present
+- VDD ← UI components
+- DDD ← public API/docs
+- SDD ← internal logic
+
+**Auto-detects ADRs:**
+- constraining ← choices made (frameworks, patterns)
+- enabling ← capabilities to support
+
+All generated flows/ADRs are DRAFT status, require review.
 
 ## Workflow Phases Explained
 
