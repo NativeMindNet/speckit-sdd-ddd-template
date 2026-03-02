@@ -237,18 +237,38 @@ For each discovered module/decision:
    - Read existing 01-requirements.md, 02-specifications.md
    - Compare with new analysis
    - APPEND only new insights (don't overwrite)
-   - Mark as UPDATED in mapping.md
 
 3. IF NOT EXISTS:
    - Create new flow directory
    - Generate documents from understanding
-   - Mark as CREATED in mapping.md
 
 4. IF CONFLICT (analysis contradicts existing):
-   - Do NOT modify existing flow
-   - Add to review.md with CONFLICT flag
-   - Human must resolve
+   - STOP and ASK user immediately
+   - "Found conflict: [description]. Which is correct?"
+   - Don't continue until resolved
 ```
+
+### Ask Immediately, Don't Defer
+
+**No review.md** - ask questions as they arise:
+
+```
+WRONG:
+  - Find conflict → write to review.md → continue → user reviews later ❌
+
+RIGHT:
+  - Find conflict → STOP → ask user → get answer → continue ✓
+  - Uncertain about direction → ASK before digging deeper ✓
+  - Multiple interpretations → ASK which one ✓
+```
+
+### When to Ask
+
+- Existing flow contradicts analysis
+- Multiple valid module boundaries possible
+- Unclear which flow type (SDD vs DDD vs TDD)
+- Can't determine if code is deprecated or active
+- Architectural decision unclear
 
 ### Additive-Only Changes
 
@@ -263,15 +283,6 @@ When updating existing flows:
 - [new insight discovered]
 - [nuance not previously documented]
 ```
-
-### Mapping Status
-
-| Status | Meaning |
-|--------|---------|
-| CREATED | New flow created by /legacy |
-| UPDATED | Existing flow received new insights |
-| UNCHANGED | Flow exists, no new info found |
-| CONFLICT | Analysis contradicts existing docs |
 
 ### State Recovery
 - _traverse.md fully describes current position
