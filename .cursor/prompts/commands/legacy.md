@@ -78,13 +78,52 @@ src/auth/
 
 ### Flow Type Decision Matrix
 
-| Primary Purpose | Has Tests | Has UI | Has Public API | → Flow Type |
-|-----------------|-----------|--------|----------------|-------------|
+| Primary Purpose | Has Tests | Has UI | Stakeholder-facing | → Flow Type |
+|-----------------|-----------|--------|-------------------|-------------|
 | Internal logic | any | no | no | SDD |
 | Internal logic | any | yes | no | SDD + ui_components attribute |
-| Client feature | any | any | yes | DDD |
+| Needs explanation to clients/execs | any | any | yes | DDD |
 | Correctness-critical | essential | any | any | TDD |
 | User experience | any | primary | any | VDD |
+
+### DDD Selection Criteria - Stakeholder Communication
+
+**DDD is NOT about public API**. DDD flow is for features that:
+
+```
+1. REQUIRE STAKEHOLDER BUY-IN
+   - Client needs to understand value
+   - Executive needs to approve
+   - Sales needs to pitch it
+   - Users need onboarding
+
+2. FEATURE IS "SELLABLE"
+   - Has clear value proposition
+   - Solves visible problem
+   - Worth explaining to non-technical people
+
+3. DOCUMENTATION IS DELIVERABLE
+   - README.md goes to client
+   - Feature announcement needed
+   - Marketing materials required
+```
+
+**Indicators in existing code**:
+```
+- Has README.md with user-facing explanation
+- Has changelog entries describing value
+- Has user documentation
+- Referenced in marketing/sales materials
+- Has onboarding/tutorial content
+```
+
+**Counter-indicators (use SDD instead)**:
+```
+- Pure internal refactoring
+- Infrastructure changes
+- Developer-only tooling
+- No user-visible impact
+```
 
 ### TDD Selection Criteria - Cases-First Indicator
 

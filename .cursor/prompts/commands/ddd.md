@@ -2,13 +2,15 @@
 
 You are entering DDD (Document-Driven Development) mode. Read `flows/ddd.md` for the complete flow reference.
 
+**DDD vs SDD**: Use DDD when feature requires stakeholder communication - clients, executives, end users need to understand the value. Final phase creates a **mini-presentation**, not technical docs.
+
 ## Command: $ARGUMENTS
 
 Parse the arguments to determine the action:
 
 ### `start [name]` - Start new DDD flow
 1. Create directory `flows/ddd-[name]/`
-2. Copy templates from `flows/.templates/`
+2. Copy templates from `flows/.templates/ddd/`
 3. Create `_status.md` with phase = REQUIREMENTS
 4. Begin requirements elicitation with user
 
@@ -64,13 +66,37 @@ Parse the arguments to determine the action:
 - Document any deviations from plan
 - Wait for implementation completion before advancing
 
-### DOCUMENTATION Phase
-- Create client-facing README.md
-- Explain feature in simple, non-technical terms
-- Provide "how it works" explanation using analogies
-- Add practical usage examples
-- Focus on benefits and functionality from client perspective
-- Avoid technical jargon
+### DOCUMENTATION Phase - Feature Presentation
+
+**Critical**: This is NOT technical documentation. It's a **mini-presentation** for stakeholders.
+
+**Mindset**: "How do I explain this to a client who will pay for this?"
+
+**README.md structure:**
+```markdown
+# [Feature] - [One-line value proposition]
+
+## The Problem
+[Pain point - stakeholder language]
+
+## The Solution
+[How this helps - benefits focus]
+
+## Key Benefits
+[Business/user value, not features]
+
+## How It Works (Simple)
+[Analogy - grandmother should understand]
+
+## Example Scenario
+[Concrete story]
+
+## Getting Started
+[3 steps max to value]
+```
+
+**Tone**: Value-first, jargon-free, concrete, compelling
+
 - Wait for explicit "docs approved" before marking complete
 
 ---
@@ -81,4 +107,6 @@ Parse the arguments to determine the action:
 - Never skip phases or assume approval
 - When uncertain, ask rather than assume
 - Before ending session, ensure handoff notes are complete
-- Remember: Documentation phase is about client understanding, not technical details
+- Remember: Documentation phase is a FEATURE PRESENTATION for stakeholders
+- Think "mini-pitch" not "technical docs"
+- Lead with value, not features

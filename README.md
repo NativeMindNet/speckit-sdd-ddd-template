@@ -30,13 +30,13 @@ REQUIREMENTS → SPECIFICATIONS → PLAN → IMPLEMENTATION
 ```
 
 ### DDD (Document-Driven Development)
-Extended workflow that includes client-facing documentation with 5 phases:
+Extended workflow with **stakeholder communication** phase - for features requiring client/executive buy-in:
 
 ```
 REQUIREMENTS → SPECIFICATIONS → PLAN → IMPLEMENTATION → DOCUMENTATION
 ```
 
-**Key difference**: DDD adds a final documentation phase to create client-friendly README files explaining features in simple terms.
+**Key difference**: DDD adds a Documentation phase that creates a **mini-presentation** of the feature - not technical docs, but a compelling explanation of value for clients, executives, or end users.
 
 ## Quick Start
 

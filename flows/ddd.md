@@ -2,13 +2,22 @@
 
 ## Overview
 
-DDD treats documentation as the primary development artifact, encompassing not just specifications but the complete development lifecycle: requirements, specifications, implementation plans, and client-facing documentation. Code is the "last-mile" implementation derived from well-defined documents. This enables:
+DDD extends standard development with a **stakeholder communication phase**. Use DDD when a feature is significant enough to require explanation to clients, executives, or end users. The final Documentation phase creates a **mini-presentation** of the feature - not technical docs, but a compelling explanation of value.
+
+**When to use DDD (vs SDD):**
+- Feature requires client/stakeholder buy-in
+- Need to "sell" the feature to decision-makers
+- End users need to understand what's new
+- Marketing/sales need feature explanation
+- Documentation is part of the deliverable
+
+DDD treats documentation as the primary development artifact, encompassing requirements, specifications, implementation plans, and client-facing presentation. Code is the "last-mile" implementation derived from well-defined documents. This enables:
 
 - **Resumability**: Continue work across sessions without context loss
 - **Traceability**: Every implementation decision traces back to requirements
 - **Iteration**: Refine documents before committing to code
 - **Parallelization**: Multiple agents can work from the same documents
-- **Client Communication**: Clear, accessible documentation for stakeholders
+- **Stakeholder Buy-in**: Clear, compelling feature presentation for clients
 
 ## Flow Phases
 
@@ -64,18 +73,62 @@ Implementation executes the plan:
 - Document deviations and why
 - Capture learnings for spec refinement
 
-### Phase 5: Documentation
+### Phase 5: Documentation - Feature Presentation
 
 **Input**: Completed implementation
 **Output**: `flows/ddd-[name]/README.md`
 
-Client-facing documentation explains the feature in simple terms:
-- **What it does**: Feature functionality in plain language
-- **How it works**: Simple, non-technical explanation ("on your fingers")
-- **Usage examples**: Basic examples showing typical use cases
-- **Benefits**: Key advantages for the end user/client
+**Critical**: This is NOT technical documentation. It's a **mini-presentation** of the feature for stakeholders, clients, or product marketing.
 
-This phase bridges technical implementation with client understanding.
+#### Stakeholder Communication Mindset
+
+```
+Think: "How do I explain this to..."
+- A client who will pay for this feature?
+- An executive who needs to approve budget?
+- A user who will benefit from this?
+- A sales team who will pitch this?
+```
+
+#### README.md as Feature Presentation
+
+```markdown
+# [Feature Name] - [One-line value proposition]
+
+## The Problem
+[Pain point this solves - stakeholder language, not technical]
+
+## The Solution
+[How this feature addresses the problem - benefits focus]
+
+## Key Benefits
+- [Benefit 1 - business/user value]
+- [Benefit 2 - competitive advantage]
+- [Benefit 3 - efficiency gain]
+
+## How It Works (Simple)
+[Analogy or simple explanation - "on your fingers"]
+[No technical jargon - your grandmother should understand]
+
+## Example Scenario
+[Concrete story: "Imagine you're a... and you need to..."]
+
+## Getting Started
+[Simplest path to value - 3 steps max]
+
+## FAQ
+[Anticipated stakeholder questions]
+```
+
+#### Tone & Style
+
+- **Value-first**: Lead with benefits, not features
+- **Jargon-free**: No technical terms without explanation
+- **Concrete**: Use examples, scenarios, analogies
+- **Scannable**: Headers, bullets, short paragraphs
+- **Compelling**: Why should they care?
+
+This phase bridges technical implementation with stakeholder understanding and buy-in.
 
 ---
 
