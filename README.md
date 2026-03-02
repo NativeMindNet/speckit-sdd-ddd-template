@@ -146,6 +146,7 @@ Advanced tools for specification management:
 | `/adr quick [name]` | Create lightweight ADR |
 | `/adr list` | Show all ADRs with status |
 | `/adr status` | Show active ADRs (DRAFT/REVIEW) |
+| `/adr.guide` | Reference: language patterns, scaling, migration |
 
 **ADR Flow Phases**: `DRAFT → REVIEW → APPROVED | REJECTED`
 
