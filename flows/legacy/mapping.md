@@ -15,9 +15,15 @@ Maps analyzed code modules to generated flows.
 
 ## Mapping Table
 
-| Code Path | Flow | Type | Status | Notes |
-|-----------|------|------|--------|-------|
-| - | - | - | DRAFT | - |
+| Code Path | Flow | Type | Action | Status | Notes |
+|-----------|------|------|--------|--------|-------|
+| - | - | - | CREATED/UPDATED/UNCHANGED/CONFLICT | DRAFT | - |
+
+### Action Values
+- **CREATED** - New flow created
+- **UPDATED** - Existing flow appended to (additive changes only)
+- **UNCHANGED** - Flow exists, no new information found
+- **CONFLICT** - Analysis contradicts existing documentation (needs reconciliation)
 
 ## ADR Mapping
 

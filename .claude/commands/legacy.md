@@ -193,9 +193,71 @@ flows/legacy/                      flows/[type]-[name]/  (created)
 
 ---
 
+## Idempotency & Upsert Semantics
+
+**Critical**: `/legacy` must be idempotent - running multiple times produces consistent results without duplicates.
+
+### Check-Before-Write Pattern
+
+For each identified module/decision:
+```
+1. Check if flows/[type]-[name]/ already exists
+2. If EXISTS:
+   - Read existing documents
+   - Detect delta (new info not in existing)
+   - Append delta only (additive changes)
+   - Mark as UPDATED in mapping.md
+3. If NOT EXISTS:
+   - Create new flow
+   - Mark as CREATED in mapping.md
+```
+
+### Additive-Only Changes
+
+When updating existing flows:
+```markdown
+## [Existing Section]
+[existing content unchanged]
+
+## [Existing Section] - Legacy Additions
+> Added by /legacy on [DATE]
+
+- [new detail discovered]
+- [nuance not previously documented]
+```
+
+### Delta Detection
+
+Compare analysis results with existing docs:
+- **New behaviors** → append to requirements
+- **New interfaces** → append to specifications
+- **New dependencies** → append to relevant section
+- **Conflicts** → add to review.md with CONFLICT flag
+
+### Conflict Handling
+
+If analysis contradicts existing documentation:
+```
+1. Do NOT overwrite existing
+2. Add conflict note to review.md
+3. Mark flow as NEEDS_RECONCILIATION
+4. Human must resolve
+```
+
+### Mapping Status Values
+
+| Status | Meaning |
+|--------|---------|
+| CREATED | New flow created |
+| UPDATED | Existing flow appended to |
+| UNCHANGED | Exists, no new info found |
+| CONFLICT | Analysis contradicts existing |
+
+---
+
 ## Output
 
-All created flows and ADRs are in **DRAFT** status:
+All created/updated flows and ADRs are in **DRAFT** status:
 - Require human review
 - Listed in `flows/legacy/review.md`
 - After review → approve or revise

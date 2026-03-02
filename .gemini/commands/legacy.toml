@@ -108,9 +108,31 @@ flows/legacy/
 
 ---
 
+## Idempotency & Upsert Semantics
+
+Command is idempotent - multiple runs produce consistent results.
+
+### Check-Before-Write Pattern
+1. Check if flow exists
+2. If EXISTS → append delta only (additive changes)
+3. If NOT EXISTS → create new
+
+### Additive-Only Changes
+- Never overwrite existing content
+- Append new discoveries as "Legacy Additions" sections
+- Conflicts → add to review.md, human resolves
+
+### Mapping Actions
+- CREATED - New flow
+- UPDATED - Appended to existing
+- UNCHANGED - No new info
+- CONFLICT - Contradicts existing
+
+---
+
 ## Output
 
-All flows and ADRs created in **DRAFT** status:
+All flows and ADRs created/updated in **DRAFT** status:
 - Require human review
 - After review → approve or revise
 - Then available for /roadmap
