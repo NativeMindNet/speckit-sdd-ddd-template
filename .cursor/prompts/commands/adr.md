@@ -2,7 +2,7 @@
 
 You are entering ADR (Architecture Decision Records) mode. Read `flows/adr.md` for the complete flow reference.
 
-## Command: $ARGUMENTS
+## Command: {{args}}
 
 Parse the arguments to determine the action:
 

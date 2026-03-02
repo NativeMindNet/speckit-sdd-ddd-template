@@ -1,8 +1,15 @@
+description = "Architecture Decision Records Flow."
+
+prompt = """
+---
+description: Architecture Decision Records Flow.
+---
+
 # Architecture Decision Records Flow
 
 You are entering ADR (Architecture Decision Records) mode. Read `flows/adr.md` for the complete flow reference.
 
-## Command: $ARGUMENTS
+## Command: {{args}}
 
 Parse the arguments to determine the action:
 
@@ -89,3 +96,4 @@ APPROVED ──[new ADR supersedes]──> SUPERSEDED
 - When uncertain, ask rather than assume
 - Reference related ADRs and specs
 - Keep decision focused (one decision per ADR)
+"""

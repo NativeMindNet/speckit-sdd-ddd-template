@@ -1,6 +1,6 @@
 # Document-Driven Development Template
 
-A comprehensive framework for managing software development through structured documentation. This template supports both **SDD (Spec-Driven Development)** and **DDD (Document-Driven Development)** workflows, enabling AI-assisted development with full traceability from requirements to implementation.
+A comprehensive framework for managing software development through structured documentation. This template supports **SDD**, **DDD**, **TDD**, **VDD** workflows and **ADR** (Architecture Decision Records), enabling AI-assisted development with full traceability from requirements to implementation.
 
 ## Overview
 
@@ -11,6 +11,14 @@ This template treats documentation as the primary development artifact, where co
 - **Iteration**: Refine documents before committing to code
 - **Parallelization**: Multiple agents can work from the same documents
 - **Client Communication**: Clear, accessible documentation for stakeholders
+- **Decision History**: ADRs capture architectural decisions with full rationale
+
+## Auto-loaded Context
+
+The `CLAUDE.md` file is automatically loaded at session start, providing:
+- ADR Index Summary (all decisions with status and links)
+- Active flows list (SDD/DDD/TDD/VDD in progress)
+- Quick navigation to documentation and commands
 
 ## Supported Workflows
 
@@ -67,18 +75,28 @@ Each phase requires explicit approval before advancing:
 
 ```
 .
+├── CLAUDE.md                     # Auto-loaded context (ADR index, flows list)
 ├── flows/
 │   ├── sdd.md                    # SDD flow documentation
 │   ├── ddd.md                    # DDD flow documentation
+│   ├── tdd.md                    # TDD flow documentation
+│   ├── vdd.md                    # VDD flow documentation
+│   ├── adr.md                    # ADR flow documentation
+│   ├── adr-index.md            # Master index of all ADRs
 │   ├── .templates/               # Templates for new flows
-│   │   ├── requirements.md
-│   │   ├── specifications.md
-│   │   ├── plan.md
-│   │   ├── implementation-log.md
-│   │   ├── readme.md             # Client documentation template
-│   │   └── _status.md
+│   │   ├── sdd/                  # SDD templates
+│   │   ├── ddd/                  # DDD templates
+│   │   ├── tdd/                  # TDD templates
+│   │   ├── vdd/                  # VDD templates
+│   │   └── adr/                  # ADR templates
+│   │       ├── adr.md            # Full ADR template
+│   │       ├── lightweight.md    # Quick ADR template
+│   │       └── _status.md        # Status tracking
 │   ├── sdd-[feature]/            # SDD flow instances
-│   └── ddd-[feature]/            # DDD flow instances
+│   ├── ddd-[feature]/            # DDD flow instances
+│   ├── tdd-[feature]/            # TDD flow instances
+│   ├── vdd-[feature]/            # VDD flow instances
+│   └── adr-[NNN]-[name]/         # ADR instances (numbered)
 │
 ├── .claude/commands/             # Claude Code commands
 ├── .cursor/prompts/commands/     # Cursor commands
@@ -123,7 +141,17 @@ Advanced tools for specification management:
 
 | Command | Description |
 |---------|-------------|
-| `/adr` | Manage Architecture Decision Records |
+| `/adr start [name]` | Start new ADR in DRAFT phase |
+| `/adr resume [n]` | Resume existing ADR by number or name |
+| `/adr quick [name]` | Create lightweight ADR |
+| `/adr list` | Show all ADRs with status |
+| `/adr status` | Show active ADRs (DRAFT/REVIEW) |
+
+**ADR Flow Phases**: `DRAFT → REVIEW → APPROVED | REJECTED`
+
+Each phase requires explicit approval:
+- "ready for review" (DRAFT → REVIEW)
+- "ADR approved" or "ADR rejected" (REVIEW → decision)
 
 ## Workflow Phases Explained
 
