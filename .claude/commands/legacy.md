@@ -97,7 +97,13 @@ RECURSIVE-UNDERSTAND(node):
         │               SYNTHESIZING ◄────┘       │
         │                    │                    │
         │                    ▼                    │
-        └─────────────── EXITING ─────────────────┘
+        │                 EXITING                 │
+        │                    │                    │
+        │                    ▼                    │
+        │         [generate ADR/SDD/DDD/TDD/VDD]  │
+        │                    │                    │
+        │                    ▼                    │
+        └─────────────── [record state] ──────────┘
                             │
                             ▼
                      [pop from stack]
@@ -138,7 +144,8 @@ AI reads `_traverse.md` to know exactly where it is and what to do next.
 | EXPLORING | Source code | _node.md (validated) | SPAWNING |
 | SPAWNING | _node.md | Pending children | RECURSE or SYNTH |
 | SYNTHESIZING | Children summaries | _node.md (synthesis) | EXITING |
-| EXITING | _node.md | Parent's bubble-up | Pop stack |
+| EXITING | _node.md | **1. ADR/SDD/DDD/TDD/VDD docs** | Record State |
+| Record State | All docs | **2. _traverse.md, log.md** | Pop stack |
 
 ---
 
@@ -213,17 +220,22 @@ Execute current phase, update state, continue or pause.
 6. If paused/interrupted: state is saved
 ```
 
-### Step 3: Generate Flows
+### Step 3: Generate Flows (Before Recording Iteration)
+
+**CRITICAL**: Before recording iteration status in _traverse.md, generate all flow documents.
 
 When a node reaches EXITING with high confidence:
 ```
-1. Create flows/[type]-[name]/
-2. Generate 01-requirements.md from understanding
-3. Generate 02-specifications.md from code analysis
-4. Status = DRAFT
+1. Determine flow type (SDD|DDD|TDD|VDD) based on Flow Type Detection
+2. Create flows/[type]-[name]/
+3. Generate 01-requirements.md from understanding
+4. Generate 02-specifications.md from code analysis
+5. Status = DRAFT
 ```
 
-### Step 4: Generate ADRs
+### Step 4: Generate ADRs (Before Recording Iteration)
+
+**CRITICAL**: Before recording iteration status in _traverse.md, generate ADR documents.
 
 For discovered architectural decisions:
 ```
@@ -231,6 +243,18 @@ For discovered architectural decisions:
 2. Type: constraining | enabling
 3. Status = DRAFT
 ```
+
+### Step 5: Record Iteration Status (After All Documents)
+
+**ONLY AFTER** ADR, SDD, DDD, TDD, VDD documents are created:
+```
+1. Update _traverse.md with new state
+2. Update _node.md with current understanding
+3. Log iteration in log.md
+4. Continue or pause for next invocation
+```
+
+**Order is CRITICAL**: Documents FIRST, then state persistence.
 
 ---
 
